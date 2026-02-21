@@ -1,0 +1,78 @@
+body {
+
+    background-color: darkblue;
+
+}
+
+.container {
+
+    display: flex;
+}
+
+.sidebar {
+
+    height: 700px;
+    width: 300px;
+    background: gray;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+    border: 2px solid black;
+    border-radius: 15px; /* Скругление углов */
+}
+
+.workspace {
+
+    background: grey;
+    padding: 20px 40px;
+    border-radius: 15px;
+    height: 600px;
+    width: 1000px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+    border: 2px solid black;
+    position: relative;
+    left: 100px;
+}
+
+.console {
+    background: black;
+    border: 1px solid white;
+    border-radius: 15px;
+    margin-left: 560px;
+    height: 300px;
+    width: 900px;
+}
+
+
+.block {
+    width: 80%;       
+    height: 50px;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    margin-left: 20px;
+    justify-content: center;
+    border-radius: 12px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: all 0.3s ease; /* плавный hover */
+
+}
+
+.block:hover {
+    transform: translateY(-2px)
+}
+
+.sidebar_title {
+    font-size: 50px;
+    font-weight: bold;
+    margin-left: 65px;
+    margin-top: 10px
+}
+
+.workspace_title {
+    font-size: 50px;
+    font-weight: bold;
+    margin-left: 300px;
+    margin-top: -10px
+}
