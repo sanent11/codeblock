@@ -12,8 +12,8 @@
 
             <p class="sidebar_title">Блоки</p>
             
-            <div class="block" draggable="true">Переменные</div>
-            <div class="block" draggable="true">Присваивание</div>
+            <div class="block" data-type="intVar" draggable="true">Переменные</div>
+            <div class="block" data-type="assignInt" draggable="true">Присваивание</div>
             <div class="block" draggable="true">Арифметические операции</div>
             <div class="block" draggable="true">Условие</div>
             
@@ -25,10 +25,13 @@
             <p class="workspace_title">Рабочая область</p>
 
         </div>
+        <button class="clear">Очистить</button>
     </div>
     
     
     <div class="console"></div>
-    <script src="block_scripts.js"></script>
+    <script src="js/block.js"></script>
+    <script src="js/block_drag.js"></script>
+    <script src="js/validation.js"></script>
 </body>
 </html>

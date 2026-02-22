@@ -19,6 +19,14 @@ body {
     border-radius: 15px; /* Скругление углов */
 }
 
+.workspace_title {
+    position: absolute;
+    font-size: 50px;
+    font-weight: bold;
+    left: 350px;
+    margin-top: -10px
+}
+
 .workspace {
 
     background: grey;
@@ -54,9 +62,34 @@ body {
     justify-content: center;
     border-radius: 12px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-    cursor: pointer;
+    cursor: grab;
     transition: all 0.3s ease; /* плавный hover */
 
+}
+
+.var-block {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    font-weight: bold;
+    cursor: grab;
+    user-select: none;
+}
+
+.var-block .value {
+    background: white;
+    color: black;
+    padding: 4px 8px;
+    border-radius: 12px;
+    min-width: 40px;
+    text-align: center;
+    outline: none;
 }
 
 .block:hover {
@@ -70,9 +103,9 @@ body {
     margin-top: 10px
 }
 
-.workspace_title {
-    font-size: 50px;
-    font-weight: bold;
-    margin-left: 300px;
-    margin-top: -10px
+.clear {
+    background: green;
+    position: absolute;
+    left: 1400px;
+    margin-top: 10px;
 }
