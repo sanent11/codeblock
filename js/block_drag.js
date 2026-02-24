@@ -25,7 +25,7 @@ workspace.addEventListener("drop", (e) => {
         workspace.appendChild(newBlock);
     }
     else if (type === "intVar") {
-        const newBlock = createVarBlock(type, x, y);
+        const newBlock = createVarBlock(x, y);
         workspace.appendChild(newBlock);
     }
 });
