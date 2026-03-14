@@ -109,3 +109,10 @@ body {
     left: 1400px;
     margin-top: 10px;
 }
+
+.btn-run {
+    background: green;
+    position: absolute;
+    left: 1370px;
+    margin-top: -35px;
+}

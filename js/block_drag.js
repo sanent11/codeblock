@@ -1,59 +1,62 @@
-const blocks = document.querySelectorAll(".block");
-let dragged = null;
+var blocks = document.querySelectorAll(".block");
+var dragged = null;
 
-blocks.forEach(block => {
-    block.addEventListener("dragstart", () => {
-        dragged = block;
+for (var i = 0; i < blocks.length; i++) {
+    blocks[i].addEventListener("dragstart", function() {
+        dragged = this;
     });
-});
+}
 
-workspace.addEventListener("dragover", (e) => {
+workspace.addEventListener("dragover", function(e) {
     e.preventDefault();
 });
 
-workspace.addEventListener("drop", (e) => {
-    e.preventDefault();
+workspace.addEventListener("drop", function(e) {
+    var rect = workspace.getBoundingClientRect();
+    var x = e.clientX - rect.left;
+    var y = e.clientY - rect.top;
 
-    const rect = workspace.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    var type = dragged.dataset.type;
+    var newBlock = null;
 
-    const type = dragged?.dataset?.type;
-
-    if (type === "assignInt") {
-        const newBlock = createAssignIntBlock(x, y);
-        workspace.appendChild(newBlock);
+    if (type === "intVar") {
+        newBlock = CreateVarBlock(x, y);
+    } else if (type === "assignInt") {
+        newBlock = CreateAssignIntBlock(x, y);
+    } else if (type === "arifmetic") {
+        newBlock = CreateArithBlock(x, y);
+    } else if (type === "condition") {
+        newBlock = CreateConditionBlock(x, y);
     }
-    else if (type === "intVar") {
-        const newBlock = createVarBlock(x, y);
+
+    if (newBlock !== null) {
         workspace.appendChild(newBlock);
     }
 });
 
-workspace.addEventListener("mousedown", (e) => {
-    const block = e.target.closest(".var-block");
-    if (!block) return;
+workspace.addEventListener("mousedown", function(e) {
+    var block = e.target.closest(".var-block");
+    if (block === null) return;
 
-    if (e.target.classList.contains("value")) return;
-
-    let startX = e.clientX;
-    let startY = e.clientY;
-
-    let startLeft = parseInt(block.style.left) || 0;
-    let startTop = parseInt(block.style.top) || 0;
+    var startX = e.clientX;
+    var startY = e.clientY;
+    var startLeft = parseInt(block.style.left);
+    var startTop  = parseInt(block.style.top);
 
     function onMouseMove(e) {
-        let dx = e.clientX - startX;
-        let dy = e.clientY - startY;
+        var dx = e.clientX - startX;
+        var dy = e.clientY - startY;
 
-        let newX = startLeft + dx;
-        let newY = startTop + dy;
+        var newX = startLeft + dx;
+        var newY = startTop  + dy;
 
-        newX = Math.max(0, Math.min(newX, workspace.clientWidth - block.offsetWidth));
-        newY = Math.max(0, Math.min(newY, workspace.clientHeight - block.offsetHeight));
+        if (newX < 0) newX = 0;
+        if (newY < 0) newY = 0;
+        if (newX > workspace.clientWidth  - block.offsetWidth)  newX = workspace.clientWidth  - block.offsetWidth;
+        if (newY > workspace.clientHeight - block.offsetHeight) newY = workspace.clientHeight - block.offsetHeight;
 
         block.style.left = newX + "px";
-        block.style.top = newY + "px";
+        block.style.top  = newY + "px";
     }
 
     function onMouseUp() {
@@ -65,9 +68,11 @@ workspace.addEventListener("mousedown", (e) => {
     document.addEventListener("mouseup", onMouseUp);
 });
 
-const clearButton = document.querySelector(".clear");
+var clearButton = document.querySelector(".clear");
 
-clearButton.addEventListener("click", () => {
-    const blocks = workspace.querySelectorAll(".var-block");
-    blocks.forEach(block => block.remove());
+clearButton.addEventListener("click", function() {
+    var allBlocks = workspace.querySelectorAll(".var-block");
+    for (var i = 0; i < allBlocks.length; i++) {
+        allBlocks[i].remove();
+    }
 });

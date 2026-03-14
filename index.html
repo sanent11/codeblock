@@ -14,8 +14,8 @@
             
             <div class="block" data-type="intVar" draggable="true">Переменные</div>
             <div class="block" data-type="assignInt" draggable="true">Присваивание</div>
-            <div class="block" draggable="true">Арифметические операции</div>
-            <div class="block" draggable="true">Условие</div>
+            <div class="block" data-type="arifmetic" draggable="true">Арифметические операции</div>
+            <div class="block" data-type="condition" draggable="true">Условие</div>
             
 
         </div>
@@ -28,10 +28,12 @@
         <button class="clear">Очистить</button>
     </div>
     
+    <button id="btn-run" class="btn-run">▶ Запустить</button>
     
     <div class="console"></div>
     <script src="js/block.js"></script>
     <script src="js/block_drag.js"></script>
     <script src="js/validation.js"></script>
+    <script src="js/interpreter.js"></script>
 </body>
 </html>
