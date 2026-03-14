@@ -92,49 +92,10 @@ function CreateArithBlock(x, y) {
     block.innerHTML = `
         <select class="arith-result"></select>
         <span>=</span>
-        <select class="arith-left-type">
-            <option value="number">Число</option>
-            <option value="var">Переменная</option>
-        </select>
-        <input class="arith-left-number" type="number" value="0" style="width:50px">
-        <select class="arith-left-var" style="display:none"></select>
-        <select class="arith-op">
-            <option>+</option>
-            <option>-</option>
-            <option>*</option>
-            <option>/</option>
-        </select>
-        <select class="arith-right-type">
-            <option value="number">Число</option>
-            <option value="var">Переменная</option>
-        </select>
-        <input class="arith-right-number" type="number" value="1" style="width:50px">
-        <select class="arith-right-var" style="display:none"></select>
+        <input class="arith-expr" type="text" value="a + b" placeholder="например: (a + b) * 2">
     `;
 
     FillVarSelect(block.querySelector(".arith-result"));
-    FillVarSelect(block.querySelector(".arith-left-var"));
-    FillVarSelect(block.querySelector(".arith-right-var"));
-
-    block.querySelector(".arith-left-type").addEventListener("change", function() {
-        if (this.value === "var") {
-            block.querySelector(".arith-left-number").style.display = "none";
-            block.querySelector(".arith-left-var").style.display = "inline";
-        } else {
-            block.querySelector(".arith-left-number").style.display = "inline";
-            block.querySelector(".arith-left-var").style.display = "none";
-        }
-    });
-
-    block.querySelector(".arith-right-type").addEventListener("change", function() {
-        if (this.value === "var") {
-            block.querySelector(".arith-right-number").style.display = "none";
-            block.querySelector(".arith-right-var").style.display = "inline";
-        } else {
-            block.querySelector(".arith-right-number").style.display = "inline";
-            block.querySelector(".arith-right-var").style.display = "none";
-        }
-    });
 
     AddDeleteButton(block);
     return block;
@@ -168,9 +129,11 @@ function CreateConditionBlock(x, y) {
         <select class="cond-action">
             <option value="print">Вывести</option>
             <option value="assign">Присвоить</option>
+            <option value="arith">Арифметика</option>
         </select>
         <select class="cond-target"></select>
         <input class="cond-assign-value" type="number" value="0" style="width:50px; display:none">
+        <input class="cond-arith-expr" type="text" value="a + b" style="width:150px; display:none">
     `;
 
     FillVarSelect(block.querySelector(".cond-left"));
@@ -190,8 +153,13 @@ function CreateConditionBlock(x, y) {
     block.querySelector(".cond-action").addEventListener("change", function() {
         if (this.value === "assign") {
             block.querySelector(".cond-assign-value").style.display = "inline";
+            block.querySelector(".cond-arith-expr").style.display = "none";
+        } else if (this.value === "arith") {
+            block.querySelector(".cond-assign-value").style.display = "none";
+            block.querySelector(".cond-arith-expr").style.display = "inline";
         } else {
             block.querySelector(".cond-assign-value").style.display = "none";
+            block.querySelector(".cond-arith-expr").style.display = "none";
         }
     });
 

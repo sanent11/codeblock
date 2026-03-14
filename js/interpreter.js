@@ -6,6 +6,7 @@ function printLine(text, color) {
     var line = document.createElement("div");
     line.textContent = text;
     line.style.color = color;
+    line.style.paddingLeft = "10px";
     consoleEl.appendChild(line);
 }
 
@@ -87,62 +88,28 @@ function RunProgram() {
 
         else if (type === "arith") {
             var resultName = block.querySelector(".arith-result").value;
-
+            var expr = block.querySelector(".arith-expr").value;
+ 
             if (variables[resultName] === undefined) {
                 printLine("Ошибка: переменная «" + resultName + "» не создана", "red");
                 return;
             }
-
-            var leftType = block.querySelector(".arith-left-type").value;
-            var leftValue;
-            var leftLabel;
-
-            if (leftType === "number") {
-                leftValue = parseInt(block.querySelector(".arith-left-number").value);
-                leftLabel = String(leftValue);
-            } else {
-                var leftName = block.querySelector(".arith-left-var").value;
-                if (variables[leftName] === undefined) {
-                    printLine("Ошибка: переменная «" + leftName + "» не создана", "red");
-                    return;
-                }
-                leftValue = variables[leftName];
-                leftLabel = leftName;
+ 
+            var exprWithValues = expr;
+            for (var varName in variables) {
+                exprWithValues = exprWithValues.split(varName).join(variables[varName]);
             }
-
-            var op = block.querySelector(".arith-op").value;
-
-            var rightType = block.querySelector(".arith-right-type").value;
-            var rightValue;
-            var rightLabel;
-
-            if (rightType === "number") {
-                rightValue = parseInt(block.querySelector(".arith-right-number").value);
-                rightLabel = String(rightValue);
-            } else {
-                var rightName = block.querySelector(".arith-right-var").value;
-                if (variables[rightName] === undefined) {
-                    printLine("Ошибка: переменная «" + rightName + "» не создана", "red");
-                    return;
-                }
-                rightValue = variables[rightName];
-                rightLabel = rightName;
-            }
-
+ 
             var result;
-            if (op === "+") result = leftValue + rightValue;
-            if (op === "-") result = leftValue - rightValue;
-            if (op === "*") result = leftValue * rightValue;
-            if (op === "/") {
-                if (rightValue === 0) {
-                    printLine("Ошибка: деление на ноль", "red");
-                    return;
-                }
-                result = leftValue / rightValue;
+            try {
+                result = eval(exprWithValues);
+            } catch (e) {
+                printLine("Ошибка в выражении: " + expr, "red");
+                return;
             }
-
+ 
             variables[resultName] = result;
-            printLine(resultName + " = " + leftLabel + " " + op + " " + rightLabel + " = " + result);
+            printLine(resultName + " = " + expr + " = " + result);
         }
 
         else if (type === "condition") {
@@ -180,6 +147,21 @@ function RunProgram() {
                     var newValue = parseInt(block.querySelector(".cond-assign-value").value);
                     variables[target] = newValue;
                     printLine("  " + target + " = " + newValue);
+                } else if (action === "arith") {
+                    var expr = block.querySelector(".cond-arith-expr").value;
+                    var exprWithValues = expr;
+                    for (var varName in variables) {
+                        exprWithValues = exprWithValues.split(varName).join(variables[varName]);
+                    }
+                    var arithResult;
+                    try {
+                        arithResult = eval(exprWithValues);
+                    } catch (e) {
+                        printLine("Ошибка в выражении: " + expr, "red");
+                        return;
+                    }
+                    variables[target] = arithResult;
+                    printLine("  " + target + " = " + expr + " = " + arithResult);
                 }
             }
         }

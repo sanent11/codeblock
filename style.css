@@ -63,7 +63,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.2);
     cursor: grab;
-    transition: all 0.3s ease; /* плавный hover */
+    transition: all 0.3s ease; 
 
 }
 
@@ -91,6 +91,7 @@ body {
     text-align: center;
     outline: none;
 }
+
 
 .block:hover {
     transform: translateY(-2px)
